@@ -66,7 +66,7 @@ A sample group is marked **Pass** only if all of the following are met:
 - Mean FAM concentration ≥ 20 copies/µL
 - Mean HEX concentration ≥ 20 copies/µL
 - Mean accepted droplets ≥ 10,000
-- Replicate CV ≤ CV threshold (default 20%)
+- Replicate CV ≤ CV threshold (default 5%)
 
 ## Outputs
 
