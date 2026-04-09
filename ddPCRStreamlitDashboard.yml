@@ -1,0 +1,14 @@
+name: streamlit_dashboard
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.13
+  - pandas=3.0.2
+  - matplotlib=3.10.8
+  - seaborn=0.13.2
+  - numpy=2.4.3
+  - openpyxl=3.1.5
+  - streamlit=1.45.0
+  - pip
