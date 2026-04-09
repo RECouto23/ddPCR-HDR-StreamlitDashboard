@@ -17,7 +17,11 @@ import warnings
 import numpy
 from io import BytesIO
 from pathlib import Path
-
+import pandas as pd
+from openpyxl import load_workbook
+from openpyxl.styles import PatternFill
+from openpyxl import Workbook
+from openpyxl.drawing.image import Image
 import streamlit
 
 matplotlib.rcParams.update({'savefig.bbox':'tight'})
@@ -29,12 +33,6 @@ warnings.filterwarnings("ignore", category=RuntimeWarning)
 now = datetime.today().strftime('%Y%m%d_%H%M%S')
 
 # ALL FUNCTIONS
-import pandas as pd
-from openpyxl import load_workbook
-from openpyxl.styles import PatternFill
-from openpyxl import Workbook
-from openpyxl.drawing.image import Image
-
 
 # In[2]:
 
@@ -286,7 +284,7 @@ def seaborn_download_button(fig, filename="plot.png", label="Download plot"):
         mime="image/png"
     )
 
-def pass_fail_crit(df, group, famName, hexName, copyThresh=20, dropThresh=10000, cvThresh=20):
+def pass_fail_crit(df, group, famName, hexName, copyThresh=20, dropThresh=10000, cvThresh=5):
     
     df = df.reset_index().set_index(['Sample Group', 'Target']).sort_index()
     famFlag = 0
@@ -416,7 +414,7 @@ if fileName and keyName:
         benchlingFrame.loc[iters, 'Copies/uL (HEX)'] = impCols.reset_index().set_index(['Sample Group', 'Target']).sort_index().loc[(group, hexName), 'Conc(copies/µL)'].mean()
         benchlingFrame.loc[iters, 'Droplet Number'] = impCols.loc[group, 'Accepted Droplets'].mean()
         benchlingFrame.loc[iters, '%CV (integration)'] = cv
-        benchlingFrame.loc[iters, 'Pass/Fail'] = pass_fail_crit(impCols, group, famName, hexName)
+        benchlingFrame.loc[iters, 'Pass/Fail'] = pass_fail_crit(impCols, group, famName, hexName, 20, 10000, cvThresh)
         benchlingFrame.loc[iters, 'Primer Target (FAM)'] = famName
         benchlingFrame.loc[iters, 'Primer Target (HEX)'] = hexName
         
